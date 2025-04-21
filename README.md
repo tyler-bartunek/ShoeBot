@@ -26,12 +26,14 @@ fundamentally alters the dynamics of the system and therefore influence control.
 of these parameters was largely underexplored in what I found, so I set out to make my own. But I needed a good frame. Something
 cheap and easy to deploy. As I looked around me, I saw an unused shoebox. And the ShoeBot system was born. 
 
-Realistically any cardboard box will work, but at the time a shoebox seemed like the right size for what I set out to accomplish.
+>Realistically any cardboard box will work, but at the time a shoebox seemed like the right size for what I set out to accomplish.
 
 2. Why didn't you use \<insert fastener here\> to fasten the modules to the box?
 
 >In the early days, I explored a number of different means for mounting the hardware to the box. The current design for mounting
 hardware to the box solves two problems simulataneously: the first is that of establishing a secure connection, the second is
-offering a path for routing the wires from inside the box to the modules on the outside. Does the act of cutting into the box
-limit the reusability of a single box to test multiple design parameters? Yes, as do other adhesives that have enough strength
-to reliably anchor the hardware to the outside of the box. 
+offering a path for routing the wires from inside the box to the modules on the outside.
+
+3. Doesn't the act of cutting into the box limit the reusability of a single box to test multiple design parameters?
+
+>Yes, as do other adhesives that have enough strength to reliably anchor the hardware to the outside of the box. 
