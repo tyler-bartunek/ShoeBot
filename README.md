@@ -19,7 +19,7 @@ STEP files for all prepared modules will be made available upon finalization.
 
 1. Why shoeboxes?
 
-I had originally set out to make what essentially amounts to just the wheels module as a CAD and mechatronic portfolio piece.
+>I had originally set out to make what essentially amounts to just the wheels module as a CAD and mechatronic portfolio piece.
 Seeking to understand the design considerations, I started to immerse myself in literature surrounding mecanum wheel devices 
 and discovered something that is in hindsight self-evident: different design decisions like the wheel spacing and orientation 
 fundamentally alters the dynamics of the system and therefore influence control. Creating modular systems to explore the impact 
@@ -28,9 +28,9 @@ cheap and easy to deploy. As I looked around me, I saw an unused shoebox. And th
 
 Realistically any cardboard box will work, but at the time a shoebox seemed like the right size for what I set out to accomplish.
 
-2. Why didn't you use <insert fastener here> to fasten the modules to the box?
+2. Why didn't you use \<insert fastener here\> to fasten the modules to the box?
 
-In the early days, I explored a number of different means for mounting the hardware to the box. The current design for mounting
+>In the early days, I explored a number of different means for mounting the hardware to the box. The current design for mounting
 hardware to the box solves two problems simulataneously: the first is that of establishing a secure connection, the second is
 offering a path for routing the wires from inside the box to the modules on the outside. Does the act of cutting into the box
 limit the reusability of a single box to test multiple design parameters? Yes, as do other adhesives that have enough strength
