@@ -31,8 +31,8 @@ cheap and easy to deploy. As I looked around me, I saw an unused shoebox. And th
 2. Why didn't you use \<insert fastener here\> to fasten the modules to the box?
 
 >In the early days, I explored a number of different means for mounting the hardware to the box. The current design for mounting
-hardware to the box solves two problems simulataneously: the first is that of establishing a secure connection, the second is
-offering a path for routing the wires from inside the box to the modules on the outside.
+hardware to the box solves two problems simulataneously: the first is that of establishing a secure connection with minimal
+assembly complexity, the second is offering a path for routing the wires from inside the box to the modules on the outside.
 
 3. Doesn't the act of cutting into the box limit the reusability of a single box to test multiple design parameters?
 
