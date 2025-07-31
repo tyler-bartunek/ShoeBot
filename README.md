@@ -33,14 +33,14 @@ able to put this system together.
 
 Each module has its own Pi Pico in it running in peripheral mode as a local controller, and should have
 the following leads coming out of it: 
--3.3 V (Pico VCC)
--12 V (Motor Power)
--COPI (SPI)
--CIPO (SPI)
--SCK (SPI)
--CS (SPI)
--Pico GND
--Motor GND
+- 3.3 V (Pico VCC)
+- 12 V (Motor Power)
+- COPI (SPI)
+- CIPO (SPI)
+- SCK (SPI)
+- CS (SPI)
+- Pico GND
+- Motor GND
 
 ## Hardware
 
