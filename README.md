@@ -19,8 +19,8 @@ The ShoeBot framework is an open-source platform designed to make learning about
 systems accessible, modular, and affordable. 
 
 A standardized 3D-printable rail mounting system allows for the creation of completely reconfigurable mobile robots,
-with pre-designed modules intended to be buildable with nothing more than a 3D printer and a soldering iron. Additional
-custom hardware files are provided to facilitate wiring, but are optional. 
+with pre-designed modules intended to be buildable with nothing more than a 3D printer, screwdriver, and a soldering 
+iron. Additional custom hardware files are provided to facilitate wiring, but are optional. 
 
 The guiding philosophy is that if you have a box, soldering iron, basic fasteners, and a 3D printer then you should be 
 able to put this system together.
