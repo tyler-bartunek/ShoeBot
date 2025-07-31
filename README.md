@@ -2,7 +2,7 @@
 
 ## Table of Contents
 - [Statement of Purpose](#statement-of-purpose)
-- [Description of Modules](#description-of-modules)
+- [Module Descriptions](#description-of-modules)
 - [Hardware](#hardware)
   - [Printed Components and Module Fit](#printed-components-and-module-fit)
   - [Printing Directions](#printing-directions)
@@ -15,17 +15,32 @@
 - [License](#license)
 
 ## Statement of Purpose
-The ShoeBot framework is an open-source platform intended to lower the barrier of entry to learning mobile robotics and 
-controls. As long as you have a box, access to a 3D FDM printer, as well as soldering and crimping capabilities, then you 
-should in principle be able to use this framework, though additional custom electronics and their schematics are 
-available to simplify wiring if desired. Through the use of a standardized mounting system, creators have the 
-freedom to use either the pre-built demos to get a cheap bot up and running or develop their own, compatible platforms. 
+The ShoeBot framework is an open-source platform designed to make learning about and development of mobile robotic
+systems accessible, modular, and affordable. 
 
-## Description of Modules
+A standardized 3D-printable rail mounting system allows for the creation of completely reconfigurable mobile robots,
+with pre-designed modules intended to be buildable with nothing more than a 3D printer and a soldering iron. Additional
+custom hardware files are provided to facilitate wiring, but are optional. 
+
+The guiding philosophy is that if you have a box, soldering iron, basic fasteners, and a 3D printer then you should be 
+able to put this system together.
+
+## Module Descriptions
 
 1. Wheels: This module consists of DC motors and mecanum wheels.
 2. Shoeshine: Offers quadrapedal motion through use of servomotors
 3. HexaBox: Requires six mounts, offers six-legged locomotion through use of servomotors.
+
+Each module has its own Pi Pico in it running in peripheral mode as a local controller, and should have
+the following leads coming out of it: 
+-3.3 V (Pico VCC)
+-12 V (Motor Power)
+-COPI (SPI)
+-CIPO (SPI)
+-SCK (SPI)
+-CS (SPI)
+-Pico GND
+-Motor GND
 
 ## Hardware
 
@@ -84,7 +99,7 @@ splitting assumes 6 possible module attachment points, with the following addres
 6. Back Right: 0x04
 
 #### Future development
-As time goes on, the controls and motion-planning capabilities of this system will be extended. Check in for updates.
+As time goes on, the controls and motion-planning capabilities of this system will be extended. Check in here for updates.
 
 ## FAQ
 
@@ -110,4 +125,8 @@ assembly complexity, the second is offering a path for routing the wires from in
 >Yes, as do other adhesives that have enough strength to reliably anchor the hardware to the outside of the box. 
 
 ## License
-This project is licensed under the terms of the MIT license.
+This project is licensed under the terms of the [MIT License](LICENSE), which permits use, modification, and redistribution 
+of the materials in this repository.
+
+If you build upon or share this work, please provide appropriate attribution and link back to this repository so others can 
+benefit from and contribute to the project.
