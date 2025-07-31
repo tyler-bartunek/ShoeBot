@@ -1,5 +1,12 @@
 # ShoeBot
 
+## Table of Contents
+- [Statement of Purpose](##statement-of-purpose)
+- [Module Descriptions](##description-of-modules)
+- [Hardware Overview](##hardware)
+- [Software and SPI Protocol](##software)
+- [FAQ](##faq)
+
 ## Statement of Purpose
 The ShoeBot framework is an open-source platform intended to lower the barrier of entry to learning mobile robotics and 
 controls. As long as you have a box, access to a 3D FDM printer, as well as soldering and crimping capabilities, then you 
@@ -60,7 +67,7 @@ In order to free up GPIO pins on the Raspberry Pi, it uses an 8-bit shift regist
 the modules. The details of how to configure it will depend somewhat on the register you choose to use, but the example
 module firmware provided anticipates an active-low chip select so please apply a binary not to whichever value you send to
 the register to achieve pulling all other lines high aside from your selection. The provided KiCad design for the SPI
-splitting assumes 6 possible module attachment points, with the following addresses (prior to inversion):
+splitting assumes 6 possible module attachment points, with the following addresses (prior to bit inversion):
 
 1. Back Left: 0x80
 2. Center Left: 0x40
@@ -88,9 +95,12 @@ cheap and easy to deploy. As I looked around me, I saw an unused shoebox. And th
 2. Why didn't you use \<insert fastener here\> to fasten the modules to the box?
 
 >In the early days, I explored a number of different means for mounting the hardware to the box. The current design for mounting
-hardware to the box solves two problems simulataneously: the first is that of establishing a secure connection with minimal
+hardware to the box solves two problems simultaneously: the first is that of establishing a secure connection with minimal
 assembly complexity, the second is offering a path for routing the wires from inside the box to the modules on the outside.
 
 3. Doesn't the act of cutting into the box limit the reusability of a single box to test multiple design parameters?
 
 >Yes, as do other adhesives that have enough strength to reliably anchor the hardware to the outside of the box. 
+
+## License
+This project is licensed under the terms of the MIT license.
