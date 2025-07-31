@@ -62,13 +62,12 @@ for brass inserts to be added for screw mounting. During prototyping, a 20% infi
 ### Power Distribution and Monitoring
 This system was developed with a Raspberry Pi 3b+ in mind as the central controller, which desires a pretty stable 5V 2.5A
 DC power supply. To achieve this stable supply, the batteries (which will output lower voltage over time as they discharge)
-are connected to buck-boost converters. A lot of guides will tell you to power the pi through the micro USB, this guide is
-not one of them. Instead, this design opts for a buck converter with micro USB output to leverage the Pi's existing polyfuse
-for a little bit of insurance against instability in the power line. 
+are connected to buck-boost converters. This design opts for a buck converter with micro USB output to leverage the Pi's 
+existing polyfuse for a little bit of insurance against instability in the power line. 
 
 The pre-developed modules for this system use 12 V motors and servos. Combining the need for a stable supply for the Pi
-with this fact, as well as a desire to leverage bulk pricing discounts, during development we used two [Pololu S18V20F12](https://www.pololu.com/product/2577)
-buck-boosts, one dedicated to the motors and the other dedicated to the [buck used for the Pi](https://www.amazon.com/dp/B0B6NZBWV4?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1).
+with this fact, as well as a desire to leverage bulk pricing discounts, during development two [Pololu S18V20F12](https://www.pololu.com/product/2577)
+buck-boosts were used, one dedicated to the motors and the other dedicated to the [buck used for the Pi](https://www.amazon.com/dp/B0B6NZBWV4?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1).
 
 To meet the power needs of the peripheral controllers, which in this iteration of the design are Pi Picos, a simple buck converter 
 like the LM2596 is sufficient based on the assumption that properly sized batteries (recommended 3S or 4S lithium polymer) are
