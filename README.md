@@ -1,11 +1,18 @@
 # ShoeBot
 
 ## Table of Contents
-- [Statement of Purpose](##statement-of-purpose)
-- [Module Descriptions](##description-of-modules)
-- [Hardware Overview](##hardware)
-- [Software and SPI Protocol](##software)
-- [FAQ](##faq)
+- [Statement of Purpose](#statement-of-purpose)
+- [Description of Modules](#description-of-modules)
+- [Hardware](#hardware)
+  - [Printed Components and Module Fit](#printed-components-and-module-fit)
+  - [Printing Directions](#printing-directions)
+  - [Power Distribution and Monitoring](#power-distribution-and-monitoring)
+- [Software](#software)
+  - [Communication Protocol](#communication-protocol)
+  - [Chip Select](#chip-select)
+  - [Future development](#future-development)
+- [FAQ](#faq)
+- [License](#license)
 
 ## Statement of Purpose
 The ShoeBot framework is an open-source platform intended to lower the barrier of entry to learning mobile robotics and 
