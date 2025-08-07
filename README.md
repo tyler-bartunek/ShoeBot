@@ -2,6 +2,7 @@
 # ShoeBot <img src="images/Logo.png" alt="ShoeBot Logo" width="150" align = "right"/>
 
 &nbsp;
+&nbsp;
 
 ## Table of Contents
 - [Statement of Purpose](#statement-of-purpose)
