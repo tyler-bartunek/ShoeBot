@@ -6,14 +6,18 @@
 - [Module Descriptions](#description-of-modules)
 - [Hardware](#hardware)
   - [Printed Components and Module Fit](#printed-components-and-module-fit)
-  - [Printing Directions](#printing-directions)
-  - [Power Distribution and Monitoring](#power-distribution-and-monitoring)
 - [Software](#software)
   - [Communication Protocol](#communication-protocol)
   - [Chip Select](#chip-select)
   - [Future development](#future-development)
 - [FAQ](#faq)
 - [License](#license)
+
+## Repository Structure
+- `/hardware/` – STL and STEP files for 3D printing
+- `/software/` – Code for the centralized controller, example firmware for modules, and hardware test scripts
+- `/docs/` – Quick-start guide and printing instructions, additional reference material as it becomes available (PDF)
+- `README.md` – You are here.
 
 ## Statement of Purpose
 The ShoeBot framework is an open-source platform designed to make learning about and development of mobile robotic
@@ -36,17 +40,6 @@ necessary to get the mecanum wheel based module up and running.
 2. Shoeshine: Offers quadrapedal motion through use of servomotors
 3. HexaBox: Requires six mounts, offers six-legged locomotion through use of servomotors.
 
-Each module has its own Pi Pico in it running in peripheral mode as a local controller, and should have
-the following leads coming out of it: 
-- 3.3 V (Pico VCC)
-- 12 V (Motor Power)
-- COPI (SPI)
-- CIPO (SPI)
-- SCK (SPI)
-- CS (SPI)
-- Pico GND
-- Motor GND
-
 ## Hardware
 
 ### Printed Components and Module Fit
@@ -56,44 +49,18 @@ to reflect typical tolerances for that printer with the intent of snug clearance
 Nominal ridge width for the rail channels is 8 mm, but for the described printer setup a 7.8 mm width with 8.2 mm gap
 between ridges was found to provide the desired fit. 
 
-### Printing Directions
-All 3D-printed hardware was designed with a specific print orientation in mind to save time and material by reducing the
-need for most overhangs. Prior to printing, please consult with the printing directions document *as it becomes available* 
-as it will contain images of each part in Cura oriented in the proper direction as well as notes on which holes were designed
-for brass inserts to be added for screw mounting. During prototyping, a 20% cubic infill was used with tree supports as necessary.
-
-[Amazon link to brass inserts used during prototyping](https://www.amazon.com/dp/B0DM21Z6XP?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1)
-
-### Power Distribution and Monitoring
-This system was developed with a Raspberry Pi 3b+ in mind as the central controller, which desires a pretty stable 5V 2.5A
-DC power supply. To achieve this stable supply, the batteries (which will output lower voltage over time as they discharge)
-are connected to buck-boost converters. This design opts for a buck converter with micro USB output to leverage the Pi's 
-existing polyfuse for a little bit of insurance against instability in the power line. 
-
-The pre-developed modules for this system use 12 V motors and servos. Combining the need for a stable supply for the Pi
-with this fact, as well as a desire to leverage bulk pricing discounts, during development two [Pololu S18V20F12](https://www.pololu.com/product/2577)
-buck-boosts were used, one dedicated to the motors and the other dedicated to the [buck used for the Pi](https://www.amazon.com/dp/B0B6NZBWV4?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1).
-
-To meet the power needs of the peripheral controllers, which in this iteration of the design are Pi Picos, a simple buck converter 
-like the LM2596 is sufficient based on the assumption that properly sized batteries (recommended 3S or 4S lithium polymer) are
-selected.
-
-Based on the power needs for the system, a 4A fuse is recommended between the buck-boost converters and the battery. Based
-on balance needs, it is recommended to have two batteries installed but only one needs to be connected though this is less
-crucial for configurations similar to those achievable for the "Wheels" modules.
+Detailed instructions for printing the basic hardware will be found in the Quick-Start Guide upon release.
 
 ## Software
 
 ### Communication Protocol
 This system presently communicates with locomotion hardware modules over SPI to facilitate both high-speed transactions
-for configurations where that matters as well as ease of identifying module configurations and approximate layout. 
+for configurations where that matters as well as ease of identifying module configurations and approximate layout. Included 
+as an optional component are the schematic and KiCad board file for a PCB that handles fanning out the SPI communication.
 
 #### Chip Select 
 In order to free up GPIO pins on the Raspberry Pi, it uses an 8-bit shift register to toggle chip select pins for each of
-the modules. The details of how to configure it will depend somewhat on the register you choose to use, but the example
-module firmware provided anticipates an active-low chip select so please apply a binary not to whichever value you send to
-the register to achieve pulling all other lines high aside from your selection. The provided KiCad design for the SPI
-splitting assumes 6 possible module attachment points, with the following addresses (prior to bit inversion):
+the modules. On the optional PCB, this register is a 74HC595, and the following values correspond to the following locations:
 
 1. Back Left: 0x80
 2. Center Left: 0x40
@@ -102,9 +69,12 @@ splitting assumes 6 possible module attachment points, with the following addres
 5. Center Right: 0x08
 6. Back Right: 0x04
 
+Additionally, this board and associated firmware assume active-low chip select, and that the register is sharing a clock
+with the SPI bus. 
+
 #### Future development
-As time goes on, the controls and motion-planning capabilities of this system will be extended, likely using ROS. 
-Check in here for updates.
+Much of the firmware is still under development, and additional details such as component IDs, synchronization, and timing
+requirements will be made available as that firmware is finalized. 
 
 ## FAQ
 
