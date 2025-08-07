@@ -1,4 +1,8 @@
-# ShoeBot
+<p align="center">
+  <img src="images/logo.png" alt="ShoeBot Logo" width="200"/>
+</p>
+
+# ShoeBot 
 
 ## Table of Contents
 - [Statement of Purpose](#statement-of-purpose)
