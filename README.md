@@ -31,25 +31,25 @@ The guiding philosophy is that if you have a box, soldering iron, basic fastener
 able to put this system together.
 
 ## Quick-Start Guide
-Coming soon to a repository near you, this guide will walk you through all materials, settings, and assembly steps
-necessary to get the mecanum wheel based module up and running.
+The Quick-Start Guide (coming soon) will walk you through the minimal configuration needed to get the system up and running. 
+This includes all required materials, recommended print settings, and step-by-step instructions for assembling and testing 
+the basic "Wheels" module.
 
 ## Module Descriptions
 
-1. Wheels: This module consists of DC motors and mecanum wheels.
-2. Shoeshine: Offers quadrapedal motion through use of servomotors
+1. Wheels: This module consists of DC motors and mecanum wheels, represents minimal functional example.
+2. Shoeshine: Offers quadrupedal motion through use of servomotors
 3. HexaBox: Requires six mounts, offers six-legged locomotion through use of servomotors.
 
 ## Hardware
 
 ### Printed Components and Module Fit
-Both STEP and STL files for all components to be printed are provided under the hardware directory, alongside printing
-directions as applicable. This system was prototyped using an Ender 3 V2 and Cura slicer using PLA+, with dimensions set 
-to reflect typical tolerances for that printer with the intent of snug clearance fits between mounting rails and modules.
-Nominal ridge width for the rail channels is 8 mm, but for the described printer setup a 7.8 mm width with 8.2 mm gap
-between ridges was found to provide the desired fit. 
-
-Detailed instructions for printing the basic hardware will be found in the Quick-Start Guide upon release.
+Both STEP and STL files for all components to be printed are provided under the hardware directory, with directions for
+the base hardware and wheels module provided in the Quick-Start Guide. As modules are added, printing directions specific
+to those modules will be added to the docs directory. This system was prototyped using an Ender 3 V2 and Cura slicer using 
+PLA+, with dimensions set to reflect typical tolerances for that printer with the intent of snug clearance fits between 
+mounting rails and modules. Nominal ridge width for the rail channels is 8 mm, but for the described printer setup a 7.8 mm 
+width with 8.2 mm gap between ridges was found to provide the desired fit. 
 
 ## Software
 
