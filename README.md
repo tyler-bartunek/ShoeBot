@@ -1,5 +1,5 @@
 
-<img src="images/Logo.png" alt="ShoeBot Logo" width="300"/> # ShoeBot 
+# ShoeBot <img src="images/Logo.png" alt="ShoeBot Logo" width="200"/>
 
 ## Table of Contents
 - [Statement of Purpose](#statement-of-purpose)
