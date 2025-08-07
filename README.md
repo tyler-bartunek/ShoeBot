@@ -2,6 +2,7 @@
 
 ## Table of Contents
 - [Statement of Purpose](#statement-of-purpose)
+- [Quick-Start Guide](#quick-start-guide)
 - [Module Descriptions](#description-of-modules)
 - [Hardware](#hardware)
   - [Printed Components and Module Fit](#printed-components-and-module-fit)
@@ -24,6 +25,10 @@ iron. Additional custom hardware files are provided to facilitate wiring, but ar
 
 The guiding philosophy is that if you have a box, soldering iron, basic fasteners, and a 3D printer then you should be 
 able to put this system together.
+
+## Quick-Start Guide
+Coming soon to a repository near you, this guide will walk you through all materials, settings, and assembly steps
+necessary to get the mecanum wheel based module up and running.
 
 ## Module Descriptions
 
@@ -53,9 +58,9 @@ between ridges was found to provide the desired fit.
 
 ### Printing Directions
 All 3D-printed hardware was designed with a specific print orientation in mind to save time and material by reducing the
-need for most overhangs. Prior to printing, please consult with the printing directions document as it becomes available 
-as it contains images of each part in Cura oriented in the proper direction as well as notes on which holes were designed
-for brass inserts to be added for screw mounting. During prototyping, a 20% infill was used.
+need for most overhangs. Prior to printing, please consult with the printing directions document *as it becomes available* 
+as it will contain images of each part in Cura oriented in the proper direction as well as notes on which holes were designed
+for brass inserts to be added for screw mounting. During prototyping, a 20% cubic infill was used with tree supports as necessary.
 
 [Amazon link to brass inserts used during prototyping](https://www.amazon.com/dp/B0DM21Z6XP?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1)
 
@@ -98,7 +103,8 @@ splitting assumes 6 possible module attachment points, with the following addres
 6. Back Right: 0x04
 
 #### Future development
-As time goes on, the controls and motion-planning capabilities of this system will be extended. Check in here for updates.
+As time goes on, the controls and motion-planning capabilities of this system will be extended, likely using ROS. 
+Check in here for updates.
 
 ## FAQ
 
