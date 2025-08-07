@@ -65,7 +65,8 @@ as an optional component are the schematic and KiCad board file for a PCB that h
 
 #### Chip Select 
 In order to free up GPIO pins on the Raspberry Pi, it uses an 8-bit shift register to toggle chip select pins for each of
-the modules. On the optional PCB, this register is a 74HC595, and the following values correspond to the following locations:
+the modules. On the optional PCB, this register is a 74HC595, and the following values (pre-inversion) correspond to the 
+following locations:
 
 1. Back Left: 0x80
 2. Center Left: 0x40
@@ -74,8 +75,9 @@ the modules. On the optional PCB, this register is a 74HC595, and the following 
 5. Center Right: 0x08
 6. Back Right: 0x04
 
-Additionally, this board and associated firmware assume active-low chip select, and that the register is sharing a clock
-with the SPI bus. 
+Now, this board and associated firmware assume **active-low** chip select, meaning that you actually send the **bitwise NOT**
+for each of these values. This means if you want to communicate with the back left module, you send 0x7F instead of 0x80. Also, 
+this PCB assumes that the register is using SCK from the SPI bus to handle its shift-in clock.
 
 #### Future development
 Much of the firmware is still under development, and additional details such as component IDs, synchronization, and timing
