@@ -2269,6 +2269,12 @@
 		(uuid "0f698150-9363-413e-9482-d73f52e4aef1")
 	)
 	(junction
+		(at 71.12 110.49)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1974b7df-effa-45d2-a389-598fec2840ab")
+	)
+	(junction
 		(at 113.03 151.13)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2493,10 +2499,6 @@
 	(no_connect
 		(at 86.36 119.38)
 		(uuid "c2284660-2a1a-48a9-9358-9b2de5119bd3")
-	)
-	(no_connect
-		(at 71.12 119.38)
-		(uuid "c4d8127a-22c6-4423-84e0-32a46ebd171d")
 	)
 	(no_connect
 		(at 86.36 92.71)
@@ -3552,6 +3554,16 @@
 	)
 	(wire
 		(pts
+			(xy 71.12 110.49) (xy 71.12 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c3075868-a995-4a64-9809-d540f9a57ef9")
+	)
+	(wire
+		(pts
 			(xy 80.01 64.77) (xy 63.5 64.77)
 		)
 		(stroke
@@ -3909,6 +3921,16 @@
 			(justify left bottom)
 		)
 		(uuid "cdddead0-a909-43e0-aa5b-5c01db64de88")
+	)
+	(label "cipo_peripheral"
+		(at 105.41 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e15e48f5-89a8-4bec-9048-c8334a7a8f46")
 	)
 	(label "copi"
 		(at 52.07 172.72 90)
