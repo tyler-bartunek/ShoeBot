@@ -7,9 +7,10 @@
 ## Table of Contents
 - [Statement of Purpose](#statement-of-purpose)
 - [Quick-Start Guide](#quick-start-guide)
-- [Module Descriptions](#description-of-modules)
+- [Module Descriptions](#module-descriptions)
 - [Hardware](#hardware)
   - [Printed Components and Module Fit](#printed-components-and-module-fit)
+  - [Custom PCB for SPI](#custom-pcb-for-spi)
 - [Software](#software)
   - [Communication Protocol](#communication-protocol)
   - [Chip Select](#chip-select)
@@ -40,7 +41,7 @@ The Quick-Start Guide (coming soon) will walk you through the minimal configurat
 This includes all required materials, recommended print settings, and step-by-step instructions for assembling and testing 
 the basic "Wheels" module.
 
-In the meantime, please enjoy the Print Guide snippet that covers cloning the repository as well as the basic print orientations
+While waiting for the full quickstart guide, please enjoy the [Printing directions excerpt](./docs/ShoeBot_Print_Guide.pdf) that covers cloning the repository as well as the basic print orientations
 for each of the 3D printed components.
 
 ## Module Descriptions
@@ -59,7 +60,7 @@ PLA+, with dimensions set to reflect typical tolerances for that printer with th
 mounting rails and modules. Nominal ridge width for the rail channels is 8 mm, but for the described printer setup a 7.8 mm 
 width with 8.2 mm gap between ridges was found to provide the desired fit. 
 
-### Custom PCB
+### Custom PCB for SPI
 KiCad files for a cutom PCB for fanning out the SPI communication are included, from which you can modify/augment the design
 and generate your own gerber files for production. Validation for this design is still ongoing, use at modest speeds and
 keep the wires to each module the same length. Note that while the design uses JST 2.5 mm pitch connectors for wire connections,
