@@ -56,12 +56,12 @@ for each of the 3D printed components.
 Both STEP and STL files for all components to be printed are provided under the hardware directory, with directions for
 the base hardware and wheels module provided in the Quick-Start Guide. As modules are added, printing directions specific
 to those modules will be added to the docs directory. This system was prototyped using an Ender 3 V2 and Cura slicer using 
-PLA+, with dimensions set to reflect typical tolerances for that printer with the intent of snug clearance fits between 
+PLA+, with dimensions set to reflect typical tolerances for that printer with the intent of clearance fits with minimal play between 
 mounting rails and modules. Nominal ridge width for the rail channels is 8 mm, but for the described printer setup a 7.8 mm 
 width with 8.2 mm gap between ridges was found to provide the desired fit. 
 
 ### Custom PCB for SPI
-KiCad files for a cutom PCB for fanning out the SPI communication are included, from which you can modify/augment the design
+KiCad files for an optional custom PCB for fanning out the SPI communication are included, from which you can modify/augment the design
 and generate your own gerber files for production. Validation for this design is still ongoing, use at modest speeds and
 keep the wires to each module the same length. Note that while the design uses JST 2.5 mm pitch connectors for wire connections,
 due to clearance issues with the raspberry pi standoffs it is recommended to just solder the wires in directly.
