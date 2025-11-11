@@ -74,20 +74,27 @@ for configurations where that matters as well as ease of identifying module conf
 as an optional component are the schematic and KiCad board file for a PCB that handles fanning out the SPI communication.
 
 #### Chip Select 
+To make this simpler, an SPI_Fanout class is under development. While we wait for that to finish, here's the breakdown
+of design intent for the fanout board plus a few practical tips.
+
 In order to free up GPIO pins on the Raspberry Pi, it uses an 8-bit shift register to toggle chip select pins for each of
-the modules. On the optional PCB, this register is a 74HC595, and the following values (pre-inversion) correspond to the 
+the modules. On the optional PCB, this register is a 74HC595, and the following values correspond to the 
 following locations:
 
-1. Back Left: 0x80
-2. Center Left: 0x40
-3. Front Left: 0x20
-4. Front Right: 0x10
-5. Center Right: 0x08
-6. Back Right: 0x04
+1. Back Left: 0x7F
+2. Center Left: 0xBF
+3. Front Left: 0xDF
+4. Front Right: 0xEF
+5. Center Right: 0xF7
+6. Back Right: 0xFB
 
-Now, this board and associated firmware assume **active-low** chip select, meaning that you actually send the **bitwise NOT**
-for each of these values. This means if you want to communicate with the back left module, you send 0x7F instead of 0x80. Also, 
-this PCB assumes that the register is using SCK from the SPI bus to handle its shift-in clock.
+If these values seem strange, it is because we are assuming **active-low** chip select, and these values ensure that the proper
+pin is low while all others are high. The easy way to sanity-check if the byte you are sending is correct is to figure out which 
+line you want to set low, figure out the binary value (in the case of the back-left connection, that would be 0x80), then invert.
+
+Also, this PCB assumes that the register is using SCK from the SPI bus to handle its shift-in clock. For that reason, it was
+necessary to deploy pigpio to set up an event listener on the SCK pin to detect the rising edge and send the each bit of that data on 
+that rising edge.
 
 #### Future development
 Much of the firmware is still under development, and additional details such as component IDs, synchronization, and timing
@@ -118,7 +125,7 @@ assembly complexity, the second is offering a path for routing the wires from in
 
 ## License
 This project is licensed under the terms of the [MIT License](LICENSE), which permits use, modification, and redistribution 
-of the materials in this repository.
+of the software in this repository.
 
 If you build upon or share this work, please provide appropriate attribution and link back to this repository so others can 
 benefit from and contribute to the project.
