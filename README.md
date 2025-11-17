@@ -3,6 +3,7 @@
 
 &nbsp;
 &nbsp;
+_Democratizing robotics, one shoebox at a time_
 
 ## Table of Contents
 - [Repository Structure](#repository-structure)
