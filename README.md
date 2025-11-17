@@ -5,8 +5,8 @@
 &nbsp;
 
 ## Table of Contents
-- [Statement of Purpose](#statement-of-purpose)
-- [Quick-Start Guide](#quick-start-guide)
+- [Repository Structure](#repository-structure)
+- [The Wiki](#the-wiki)
 - [Module Descriptions](#module-descriptions)
 - [Hardware](#hardware)
   - [Printed Components and Module Fit](#printed-components-and-module-fit)
@@ -25,24 +25,18 @@
 - `/images/` – Holds images used in this README, as well as some others throughout the repository
 - `README.md` – You are here.
 
-## Statement of Purpose
-The ShoeBot framework is an open-source platform designed to make learning about and development of mobile robotic
-systems accessible, modular, and affordable. 
+## The Wiki
+Documentation for this project, including: 
 
-A standardized 3D-printable rail mounting system allows for the creation of completely reconfigurable mobile robots,
-with pre-designed modules intended to be buildable with nothing more than a 3D printer, screwdriver, and a soldering 
-iron. Additional custom hardware files are provided to facilitate wiring, but are optional. 
+- Part orientation and printer setting recommendations
+- Assembly instructions
+- Calibration and hardware validation protocols
+- System-level descriptions
+- and more
 
-The guiding philosophy is that if you have a box, soldering iron, basic fasteners, and a 3D printer then you should be 
-able to put this system together.
-
-## Quick-Start Guide
-The Quick-Start Guide (coming soon) will walk you through the minimal configuration needed to get the system up and running. 
-This includes all required materials, recommended print settings, and step-by-step instructions for assembling and testing 
-the basic "Wheels" module.
-
-While waiting for the full quickstart guide, please enjoy the [Printing directions excerpt](./docs/ShoeBot_Print_Guide.pdf) that covers cloning the repository as well as the basic print orientations
-for each of the 3D printed components.
+are being migrated to the [project wiki](https://www.github.com/tyler-bartunek/ShoeBot/wiki) for ease of access
+and navigation purposes. There's a lot that goes into this system, and it is only fitting that worthy documentaion
+would be quite extensive, requiring a wiki to track it all. 
 
 ## Module Descriptions
 
