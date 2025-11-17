@@ -39,7 +39,7 @@ would be quite extensive, requiring a wiki to track it all.
 
 ## Module Descriptions
 Here are a few of the modules under development at present for the ShoeBot. Once these modules are fully fleshed
-out, a homebrew guide will be produced.
+out, a homebrew guide will be produced and added to the wiki.
 
 1. Wheels: This module consists of DC motors and mecanum wheels, represents minimal functional example.
 2. Shoeshine: Offers quadrupedal motion through use of servomotors (Pending Initial Design)
@@ -49,11 +49,10 @@ out, a homebrew guide will be produced.
 
 ### Printed Components and Module Fit
 Both STEP and STL files for all components to be printed are provided under the hardware directory, with directions for
-the base hardware and wheels module provided in the Quick-Start Guide. As modules are added, printing directions specific
-to those modules will be added to the docs directory. This system was prototyped using an Ender 3 V2 and Cura slicer using 
+the base hardware and wheels module provided in the wiki. As modules are added, printing directions specific
+to those modules will be added. This system was prototyped using an Ender 3 V2 and Cura slicer using 
 PLA+, with dimensions set to reflect typical tolerances for that printer with the intent of clearance fits with minimal play between 
-mounting rails and modules. Nominal ridge width for the rail channels is 8 mm, but for the described printer setup a 7.8 mm 
-width with 8.2 mm gap between ridges was found to provide the desired fit. 
+mounting rails and modules.
 
 ## Future development
 This project is still under development, and additional details such as component IDs, synchronization, and timing
