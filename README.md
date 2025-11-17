@@ -5,6 +5,8 @@
 &nbsp;
 _Democratizing robotics, one shoebox at a time_
 
+The ShoeBot framework is an open-source platform designed to make learning about and development of mobile robotic systems accessible, modular, and affordable.
+
 ## Table of Contents
 - [Repository Structure](#repository-structure)
 - [The Wiki](#the-wiki)
