@@ -10,11 +10,11 @@ class EWMA:
 
     def __init__(self, alpha:float = 0.0):
 
-        self.alpha = alpha #Default value says to trust the new measurement implicitly
+        self.alpha = alpha #Default value says to reject the new data outright
 
     def predict_next(self, current_state:np.ndarray, last_state:np.ndarray):
 
-        return self.alpha * current_state + (1 - self.alpha)* last_state
+        return self.alpha * current_state + (1 - self.alpha) * last_state
     
     def predict_batch(self, observations:np.ndarray):
 
@@ -23,8 +23,9 @@ class EWMA:
 
         for idx, observation in enumerate(observations):
 
+            prev_meas = self.predict_next(observation, prev_meas)
             try:
-                predictions[idx + 1] = self.predict_next(observation, prev_meas)
+                predictions[idx + 1] = prev_meas
             except IndexError:
                 break #all done
 
@@ -44,11 +45,13 @@ class StateObserver:
 
         return next_state + self.gain @ innovation
     
-    def predict_batch(self, inputs:np.ndarray, observed_states:np.ndarray, times:np.ndarray) -> np.ndarray:
+    def predict_batch(self, inputs:np.ndarray, observed_states:np.ndarray, times:np.ndarray, digital_filt:EWMA = None) -> np.ndarray:
 
         init_state = observed_states[:,0]
         last_state = init_state.copy()
         num_states = last_state.shape[0]
+
+        measured_state = observed_states[:,1]
 
         dt_vec = np.diff(times)
 
@@ -56,8 +59,13 @@ class StateObserver:
 
         for idx, dt in enumerate(dt_vec):
 
-            #Prediction step
-            last_state = self.predict_next(last_state.reshape((num_states, 1)), inputs[idx], observed_states[:,idx], sample_time=dt)
+            #Prediction step:Optionally apply digital filter
+            measured_state = observed_states[:,idx]
+            if digital_filt:      
+                measured_state[1] = digital_filt.predict_next(observed_states[1,idx], last_state.reshape((num_states,))[1])
+                
+            last_state = self.predict_next(last_state.reshape((num_states, 1)), inputs[idx], measured_state, sample_time=dt)
+            
             try:
                 predictions[:,idx + 1] = last_state.squeeze()
             except IndexError:
