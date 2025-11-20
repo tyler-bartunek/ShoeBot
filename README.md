@@ -82,4 +82,7 @@ assembly complexity, the second is offering a path for routing the wires from in
 >Yes, as do other adhesives that have enough strength to reliably anchor the hardware to the outside of the box. 
 
 ## License
-This project is licensed under the terms of the [Apache License 2.0](LICENSE).
+As of 19 November, 2025, this project is licensed under the terms of the [Apache License-2.0](LICENSE). Software provided prior 
+to this date was licensed under the terms of the MIT license, and includes the content of the directory 
+`/software/Hardware Characterization/Wheels Module`. The transition to the Apache License-2.0 is to reflect that this repository
+contains more than just software. 
