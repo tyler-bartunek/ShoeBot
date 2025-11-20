@@ -20,7 +20,7 @@ The ShoeBot framework is an open-source platform designed to make learning about
 ## Repository Structure
 - `/hardware/` – STL and STEP files for 3D printing
 - `/software/` – Code for the centralized controller, example firmware for modules, and hardware test scripts
-- `/docs/` – Quick-start guide and printing instructions, additional reference material as it becomes available (PDF)
+- `/docs/` – Printing instructions, and additional reference material as it becomes available (PDF)
 - `/images/` – Holds images used in this README, as well as some others throughout the repository
 - `README.md` – You are here.
 
