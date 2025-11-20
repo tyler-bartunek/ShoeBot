@@ -83,6 +83,3 @@ assembly complexity, the second is offering a path for routing the wires from in
 
 ## License
 This project is licensed under the terms of the [Apache License 2.0](LICENSE).
-
-If you build upon or share this work, please provide appropriate attribution and link back to this repository so others can 
-benefit from and contribute to the project.
