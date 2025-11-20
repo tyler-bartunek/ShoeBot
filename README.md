@@ -86,3 +86,8 @@ As of 19 November, 2025, this project is licensed under the terms of the [Apache
 to this date was licensed under the terms of the MIT license, and includes the content of the directory 
 `/software/Hardware Characterization/Wheels Module`. The transition to the Apache License-2.0 is to reflect that this repository
 contains more than just software. 
+
+This project also uses PyMC in the motor characterization code for the Wheels module. PyMC is also licensed under the terms
+of the [Apache License-2.0](LICENSE), and also includes software licensed under the MIT license. A notice is provided in the
+main directory of this repository, to underline this point and include the necessary copy of the MIT license for portions 
+covered by that license.
