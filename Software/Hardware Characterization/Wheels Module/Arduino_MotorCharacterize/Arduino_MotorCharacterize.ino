@@ -10,9 +10,9 @@ Update as of September 19 2025: Moved some helper functions into header files an
 #include "Encoder.h"
 #include "Wire.h"
 #include "ADS1115_WE.h"
-#include "SerialComms.h"
-#include "Trajectory.h"
-#include "Utils.h"
+#include "Headers/SerialComms.h"
+#include "Headers/Trajectory.h"
+#include "Headers/Utils.h"
 
 //Motor constants
 #define GEAR_RATIO 19.0      //Reduction ratio of 1:19 (1 turn of output to 19 turns of input)

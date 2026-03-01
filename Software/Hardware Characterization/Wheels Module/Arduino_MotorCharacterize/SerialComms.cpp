@@ -1,4 +1,4 @@
-#include "SerialComms.h"
+#include "Headers/SerialComms.h"
 
 //Check if received matches sync byte
 bool CheckReceived(unsigned char syncByte) {

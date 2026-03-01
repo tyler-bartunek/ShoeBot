@@ -1,5 +1,5 @@
 
-#include "Trajectory.h"
+#include "Headers/Trajectory.h"
 
 int GetNextCommand(Trajectory &traj, TestData &data, int *commandArray, int arraySize) {
   if (IsValidIndex(traj, arraySize)) {  //If we are within valid command index values, fetch the next command
