@@ -1,0 +1,13 @@
+[project]
+name = "SerialStreamParser"
+version = "0.1.0"
+description = "A simple example package"
+authors = [
+    { name = "Tyler Bartunek", email = "tylerbartunek@gmail.com" },
+]
+license = "Apache-2.0"
+dependencies = [serial, time, datetime, struct, os, pandas] # List any external dependencies here
+
+[build-system]
+requires = ["hatchling"] # Or other build backends like setuptools or poetry
+build-backend = "hatchling.build"
