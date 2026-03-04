@@ -6,8 +6,11 @@ authors = [
     { name = "Tyler Bartunek", email = "tylerbartunek@gmail.com" },
 ]
 license = "Apache-2.0"
-dependencies = [os, pymc, statsmodels, arviz, tqdm, pandas, numpy, PostProcessing, Filters, StateModels] # List any external dependencies here
+dependencies = ['scipy', 'pymc', 'statsmodels', 'arviz', 'tqdm', 'pandas', 'numpy', 'PostProcessing','StateModels', 'Filters'] # List any external dependencies here
 
 [build-system]
 requires = ["hatchling"] # Or other build backends like setuptools or poetry
 build-backend = "hatchling.build"
+
+[tool.setuptools.package-dir]
+"" = "src"
