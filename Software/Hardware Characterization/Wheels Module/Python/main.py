@@ -16,11 +16,11 @@ from PostProcessing import MotorData, ParseMotorData, ReshapeMotorData, GetTimes
 from datetime import datetime
 
 #MCMC code and simulations
-from MCMC_Simulator import HierarchicalModel, InitializeSimulations, RunBlocks, RunCommandForParams, PackOutputList
+from mcmc_simulator import HierarchicalModel, InitializeSimulations, RunBlocks, RunCommandForParams, PackOutputList
 from StateModels import MotorModel
 
 #Kalman Filter, MLE fitting
-from Filters import EWMA, StateObserver
+from filters import EWMA, StateObserver
 
 #Plotting, as well as loading in trace data from MCMC
 import matplotlib.pyplot as plt

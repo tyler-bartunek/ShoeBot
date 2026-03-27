@@ -18,7 +18,7 @@ import numpy as np
 
 #Import custom classes/tools for simulation purposes
 from PostProcessing import MotorData, ReshapeMotorData, GetTimesAndVoltages
-from Filters import Remap_P_3D
+from filters import Remap_P_3D
 from StateModels import MotorModel
 
 #Hierarchical bayesian model will live in here
