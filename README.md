@@ -19,7 +19,7 @@ The ShoeBot framework is an open-source platform designed to make learning about
 
 ## Repository Structure
 - `/hardware/` – STL and STEP files for 3D printing
-- `/software/` – Code for the centralized controller, example firmware for modules, and hardware test scripts
+- `/software/` – Code for the centralized controller (in progress), example firmware for modules, and hardware test scripts
 - `/docs/` – Printing instructions, and additional reference material as it becomes available (PDF)
 - `/images/` – Holds images used in this README, as well as some others throughout the repository
 - `README.md` – You are here.
@@ -41,7 +41,7 @@ would be quite extensive, requiring a wiki to track it all.
 Here are a few of the modules under development at present for the ShoeBot. Once these modules are fully fleshed
 out, a homebrew guide will be produced and added to the wiki.
 
-1. Wheels: This module consists of DC motors and mecanum wheels, represents minimal functional example.
+1. Wheels: This module consists of DC motors and mecanum wheels, represents minimal functional example (systems integration in process).
 2. Shoeshine: Offers quadrupedal motion through use of servomotors (Pending Initial Design)
 3. HexaBox: Requires six mounts, offers six-legged locomotion through use of servomotors. (Pending Initial Design)
 
