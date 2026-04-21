@@ -1,0 +1,20 @@
+#pragma once
+
+#include "Module.h"
+
+
+class EchoDevice : public Module{
+
+    public:
+
+        EchoDevice();
+
+        void run() override;
+
+        ~EchoDevice() = default;
+
+    private:
+
+        void Echo();
+
+};

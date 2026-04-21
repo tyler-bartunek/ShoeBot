@@ -14,6 +14,8 @@ EchoDevice::EchoDevice() : Module(0xF0){}
 
 void EchoDevice::run(){
 
+    //Blink according to error_code, which should be tied to status (do regardless)
+    this->ErrorMessage();
     this->Echo();
 
 }

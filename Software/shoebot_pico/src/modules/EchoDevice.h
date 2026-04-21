@@ -9,7 +9,11 @@ class EchoDevice : public Module{
 
         EchoDevice();
 
-        void run();
+        void run() override;
+
+        ~EchoDevice() = default;
+
+    private:
 
         void Echo();
 

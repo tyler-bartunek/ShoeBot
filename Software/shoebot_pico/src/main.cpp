@@ -12,12 +12,15 @@ Module options:
 */
 
 //#define and #include:
-#include "../modules/EchoDevice.h"
-// #include "../modules/Wheels.h"
+#include "EchoDevice.h"
+// #include "Wheels.h"
 
 
 /****************************Main Function  *******************************/
 int main(void){
+    // Uncomment for debugging, and #include <iostream> in relevant class definition header file
+    // stdio_init_all();  // initializes USB or UART stdout depending on config, for debug purposes
+    // sleep_ms(3000);
 
     EchoDevice pico_device = EchoDevice();
     //Wheels pico_device = Wheels();
