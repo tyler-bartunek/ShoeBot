@@ -1,11 +1,11 @@
 
-# ShoeBot <img src="images/Logo.png" alt="ShoeBot Logo" width="150" align = "right"/>
+# The KICK Robot <img src="images/Logo.png" alt="KICK Logo" width="150" align = "right"/>
 
 &nbsp;
 &nbsp;
 _Democratizing robotics, one shoebox at a time_
 
-The ShoeBot framework is an open-source platform designed to make learning about and development of mobile robotic systems accessible, modular, and affordable.
+The KICK (Kinematically Interchangeable Control Kit) Robot framework is an open-source platform designed to make learning about and development of mobile robotic systems accessible, modular, and affordable.
 
 ## Table of Contents
 - [Repository Structure](#repository-structure)
@@ -33,12 +33,12 @@ Documentation for this project, including:
 - System-level descriptions
 - and more
 
-are being migrated to the [project wiki](https://www.github.com/tyler-bartunek/ShoeBot/wiki) for ease of access
+are being migrated to the [project wiki](https://www.github.com/tyler-bartunek/KICK-Robot/wiki) for ease of access
 and navigation purposes. There's a lot that goes into this system, and it is only fitting that worthy documentation
 would be quite extensive, requiring a wiki to track it all. 
 
 ## Module Descriptions
-Here are a few of the modules under development at present for the ShoeBot. Once these modules are fully fleshed
+Here are a few of the modules under development at present for the KICK Robot. Once these modules are fully fleshed
 out, a homebrew guide will be produced and added to the wiki.
 
 1. Wheels: This module consists of DC motors and mecanum wheels, represents minimal functional example (systems integration in process).
@@ -67,7 +67,7 @@ Seeking to understand the design considerations, I started to immerse myself in 
 and discovered something that is in hindsight self-evident: different design decisions like the wheel spacing and orientation 
 fundamentally alters the dynamics of the system and therefore influence control. Creating modular systems to explore the impact 
 of these parameters was largely underexplored in what I found, so I set out to make my own. But I needed a good frame. Something
-cheap and easy to deploy. As I looked around me, I saw an unused shoebox. And the ShoeBot system was born. 
+cheap and easy to deploy. As I looked around me, I saw an unused shoebox. And the KICK Robot was born. 
 
 >Realistically any cardboard box will work, but at the time a shoebox seemed like the right size for what I set out to accomplish.
 
