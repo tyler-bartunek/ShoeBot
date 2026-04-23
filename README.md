@@ -1,5 +1,5 @@
 
-# The KICK Robot <img src="images/Logo.png" alt="KICK Logo" width="150" align = "right"/>
+# The KICK Robot <img src="images/Updated_KICK_logo.png" alt="KICK Logo" width="550" align = "right"/>
 
 &nbsp;
 &nbsp;
