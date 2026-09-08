@@ -1,5 +1,6 @@
 
 from PyQt6.QtCore import QObject, pyqtSignal, QThread
+# from PyQt6.QtWidgets import QApplication
 
 from time import sleep
 import socket
@@ -46,3 +47,7 @@ class RobotAvailabilityMonitor(QObject):
         self.profile.bridge_available = False
         self._thread.quit()
         self._thread.wait()
+        
+        # Clean up thread to avoid "Current thread is not the object's thread" error
+        self._thread.deleteLater()
+        

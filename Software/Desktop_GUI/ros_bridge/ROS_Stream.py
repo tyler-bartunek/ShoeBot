@@ -33,6 +33,8 @@ class ROS_StreamWorker(QObject):
     last_vel_updated = pyqtSignal(dict)
     cmd_vel_active = pyqtSignal(bool) #Emitted when the cmd_vel publisher is advertised or unadvertised
     
+    last_pose = pyqtSignal(list) #Emitted when a new pose is computed from the last velocity message
+    
     log_message = pyqtSignal(str, str) #Emitted for logging messages to the GUI
 
     def __init__(self, parent=None):
@@ -84,7 +86,8 @@ class ROS_StreamWorker(QObject):
                 "fault":    bool,
             }
         """
-        self.message_speed.emit( 1.0 / (perf_counter() - self.receive_time) )  # Calculate and emit the message speed in Hz
+        self.dt = perf_counter() - self.receive_time
+        self.message_speed.emit( 1.0 / (self.dt) )  # Calculate and emit the message speed in Hz
         
         active = message.get('active_paths', [False] * 6)
         ids    = message.get('device_ids',     [0]     * 6)
@@ -98,7 +101,9 @@ class ROS_StreamWorker(QObject):
         # print("Emitting voltage and velocity updates")
         self.battery_updated.emit(voltage)
         self.last_vel_updated.emit(velocity)
-        
+        self.compute_pose(velocity)  # Update the pose based on the received velocity
+        pose_simplified = [self.pose['linear']['x'], self.pose['linear']['y'], self.pose['angular']['z']]
+        self.last_pose.emit(pose_simplified)  # Emit the simplified pose for GUI updates
  
         devices = []
         for slot in range(6):
@@ -128,6 +133,20 @@ class ROS_StreamWorker(QObject):
     
         self.log_message.emit(f"[{node_name}]: {log_text}", level_name)
         
+    def compute_pose(self, velocity: dict[str, dict[str, float]]) -> None:
+        """
+        Compute the new pose based on the current velocity and time delta.
+        This is a simple dead reckoning calculation.
+        """
+        # Initialize pose if not already present
+        if not hasattr(self, 'pose'):
+            pose = {vel: {basis: 0.0 for basis in ['x', 'y', 'z']} for vel in ['linear', 'angular']}
+        
+        # Update pose based on velocity and time delta
+        for vel_type in ['linear', 'angular']:
+            for basis in ['x', 'y', 'z']:
+                pose[vel_type][basis] += velocity.get(vel_type, {}).get(basis, 0.0) * self.dt
+
     def _velocity_msg_callback(self, velocity:dict[str,dict[str,float]]):
         #Send the new velocity command to the device 
         self.cmd_vel_publisher.publish(velocity)

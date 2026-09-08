@@ -113,6 +113,9 @@ class RobotProfileManager:
         for p in self._profiles:
             if p.hostname == hostname:
                 return p.ip_address
+            
+    def get_focus(self) -> Optional[RobotProfile]:
+        return next((p for p in self._profiles if p.has_focus), None)
 
     # ------------------------------------------------------------------
     # Persistence

@@ -79,7 +79,7 @@ class OrientationWidget(QWidget):
         outer.setContentsMargins(0, 0, 0, 0)
         outer.setSpacing(4)
 
-        header = QLabel("ORIENTATION  ·  DEAD RECKONING")
+        header = QLabel("TELEMETRY: VELOCITY & ORIENTATION")
         header.setObjectName("PanelSectionHeader")
         outer.addWidget(header)
 

@@ -152,6 +152,9 @@ class MainWindow(QMainWindow):
         if self.profile_manager.get_bridge(hostname).client is None:
             self._init_ros_worker(hostname)
         else:
+            #Check if another robot is connected, and if so, disconnect from it before connecting to the new robot
+            self.smooth_disconnect(hostname)
+            
             #Fetch the ros_worker for this hostname
             ros_worker = self.profile_manager.get_bridge(hostname)
             
@@ -164,6 +167,8 @@ class MainWindow(QMainWindow):
             ros_worker.message_speed.connect(self.middle_section.status_strip.update_loop)
             ros_worker.battery_updated.connect(self.middle_section.status_strip.update_battery)
             ros_worker.cmd_vel_active.connect(self.middle_section.status_strip.update_cmdvel)
+            
+            self._set_status(connected=True, label="connected")
         
  
     def _init_ros_worker(self, hostname: str):
@@ -177,14 +182,17 @@ class MainWindow(QMainWindow):
         self._ros_threads[hostname].started.connect(lambda: ros_worker.connect(host=host, port=9090))
         self.bottom_section.fault_log.update_faults(f"GUI: Connection established, wiring signals")
  
-        # Wire bus_state -> RightPanel: Only if the device has focus, otherwise ignore the signal
+        # Wire bus_state -> RightPanel
         ros_worker.bot_state_updated.connect(self.middle_section.right_panel.refresh_devices)
         
-        #Now to Status_strip: Again only if the device has focus, otherwise ignore the signal
+        #Now to status_strip
         ros_worker.bot_state_updated.connect(self.middle_section.status_strip.update_bus)
         ros_worker.message_speed.connect(self.middle_section.status_strip.update_loop)
         ros_worker.battery_updated.connect(self.middle_section.status_strip.update_battery)
         ros_worker.cmd_vel_active.connect(self.middle_section.status_strip.update_cmdvel)
+        
+        #And now the telemetry widget
+        ros_worker.last_pose.connect(self.bottom_section.orientation.update_pose)
         
         #Connect the fault log
         ros_worker.log_message.connect(self.bottom_section.fault_log.update_faults)
@@ -208,17 +216,16 @@ class MainWindow(QMainWindow):
             #Teardown the ROS worker and monitoring for the specified hostname
             print("Disconnecting from robot:", hostname)
             self.bottom_section.fault_log.update_faults(f"GUI: Disconnecting from {hostname}")
-            self.disconnect_stat_cards(hostname) #Disconnect the signals from the ROS worker to the RightPanel and StatusStrip for the specified hostname
-            # self._teardown_ros_worker(hostname) #Maybe we don't want to teardown the ROS worker, just disconnect the signals. 
+            self.disconnect_signals_on_focus_change(hostname) #Disconnect the signals from the ROS worker to the RightPanel and StatusStrip for the specified hostname 
             self._teardown_monitoring(hostname)
-            self.profile_manager.get_bridge(hostname).client.close()
+            # self.profile_manager.get_bridge(hostname).client.close() #Disconnecting the ROS client in general might not be wise for multi-robot scenarios, as it will close the connection to the rosbridge server for that robot. Instead, we can just stop the monitoring and disconnect the signals from the ROS worker to the RightPanel and StatusStrip for that robot.
             self.profile_manager.get(hostname).has_focus = False
             
             #Update the status to disconnected and log the disconnection
             self._set_status(connected=False, label="disconnected")
             self.bottom_section.fault_log.update_faults(f"GUI: Disconnected from {hostname}")
             
-    def disconnect_stat_cards(self, hostname: str):
+    def disconnect_signals_on_focus_change(self, hostname: str):
         """Disconnect the signals from the ROS worker to the RightPanel and StatusStrip for the specified hostname."""
         ros_worker = self.profile_manager.get_bridge(hostname)
         if ros_worker is not None:
@@ -228,11 +235,26 @@ class MainWindow(QMainWindow):
             ros_worker.battery_updated.disconnect(self.middle_section.status_strip.update_battery)
             ros_worker.cmd_vel_active.disconnect(self.middle_section.status_strip.update_cmdvel) 
             
+            ros_worker.last_pose.disconnect(self.bottom_section.orientation.update_pose)
+            
             self.middle_section.right_panel.clear_devices()  # Clear the device list in the RightPanel
             self.middle_section.status_strip.update_bus([])  # Clear the bus state display
             self.middle_section.status_strip.update_loop(0.0)  # Reset the loop speed display
             self.middle_section.status_strip.update_battery(0.0)  # Reset the battery display
             self.middle_section.status_strip.update_cmdvel(False)  # Reset the command velocity display
+            
+            self.bottom_section.orientation._on_zero()
+            
+            
+    def smooth_disconnect(self, hostname: str):
+        
+        """Change to the new robot smoothly if a robot other than the one with focus is selected."""
+        #First check if there is a robot with focus, and if so, disconnect from it
+        focused_robot = self.profile_manager.get_focus()
+        if focused_robot and focused_robot.hostname != hostname:
+            self._on_robot_disconnect(focused_robot.hostname)
+            #Rewire the connect button for the previously focused robot to allow it to be reconnected in the future
+            self.title_bar.robot_combo.set_connect_button(focused_robot.hostname, set_connect=True)
  
     def _teardown_ros_worker(self, hostname:str = None):
         
@@ -243,7 +265,7 @@ class MainWindow(QMainWindow):
                 if ros_worker is not None:
                     ros_worker.disconnect()
                     try: #Try disconnecting, ignore errors that come from signals already being disconnected
-                        self.disconnect_stat_cards(hostname)
+                        self.disconnect_signals_on_focus_change(hostname)
                     except Exception:
                         pass
                 if ros_thread is not None:

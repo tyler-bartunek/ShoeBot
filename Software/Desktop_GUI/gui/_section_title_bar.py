@@ -97,7 +97,7 @@ class RobotItem(QWidget):
         self.connect_button.setText("Connect")
         self.connect_button.clicked.disconnect(self._on_disconnect_clicked)
         self.connect_button.clicked.connect(self._on_connect_clicked)
-        
+            
         
     def _on_remove_clicked(self):
         """Remove this robot from the list."""
@@ -143,5 +143,22 @@ class RobotSelector(QToolButton):
                 break
             if self.count == 0:
                 self._placeholder = self.menu.addAction("No robots found")
+                
+    def set_connect_button(self, robot_name: str, set_connect: bool):
+        
+        for action in self.menu.actions():
+            widget = action.defaultWidget()
+            if isinstance(widget, RobotItem) and widget.name == robot_name:
+                if set_connect:
+                    widget.connect_button.setText("Connect")
+                    widget.connect_button.clicked.disconnect(widget._on_disconnect_clicked)
+                    widget.connect_button.clicked.connect(widget._on_connect_clicked)
+                else:
+                    widget.connect_button.setText("Disconnect")
+                    widget.connect_button.clicked.disconnect(widget._on_connect_clicked)
+                    widget.connect_button.clicked.connect(widget._on_disconnect_clicked)
+                break
+                
+                
                 
                 
