@@ -52,6 +52,7 @@ class TitleBar(QWidget):
 class RobotItem(QWidget):
     
     connect_robot = pyqtSignal(str)
+    disconnect_robot = pyqtSignal(str)
     remove_robot = pyqtSignal(str)
     
     """A simple data object to hold robot information for the combo box."""
@@ -82,7 +83,20 @@ class RobotItem(QWidget):
         
     def _on_connect_clicked(self):
         """Emit a signal to connect to this robot."""
-        self.connect_robot.emit(self.name)
+        if not self.profile.has_focus:
+            self.connect_robot.emit(self.name)
+            #Change label to disconnect and connect this button to the disconnect signal
+            self.connect_button.setText("Disconnect")
+            self.connect_button.clicked.disconnect(self._on_connect_clicked)
+            self.connect_button.clicked.connect(self._on_disconnect_clicked)
+        
+    def _on_disconnect_clicked(self):
+        """Emit a signal to disconnect from this robot."""
+        self.disconnect_robot.emit(self.name)
+        #Change label to connect and connect this button to the connect signal
+        self.connect_button.setText("Connect")
+        self.connect_button.clicked.disconnect(self._on_disconnect_clicked)
+        self.connect_button.clicked.connect(self._on_connect_clicked)
         
         
     def _on_remove_clicked(self):

@@ -52,7 +52,7 @@ class _DeviceItem(QWidget):
     """Row showing a detected SPI device with status dot."""
 
     def __init__(self, address: str, position: str,
-                 module_type: str, fault: bool = False, parent=None):
+                 module_type: str, parent=None):
         super().__init__(parent)
         self.setObjectName("DeviceItem")
 
@@ -61,14 +61,14 @@ class _DeviceItem(QWidget):
         layout.setContentsMargins(4, 3, 4, 3)
         layout.setSpacing(7)
 
-        dot = QLabel("●")
-        dot.setObjectName("DeviceDotFault" if fault else "DeviceDotOnline")
-        dot.setFixedWidth(14)
+        # dot = QLabel("●")
+        # dot.setObjectName("DeviceDotFault" if fault else "DeviceDotOnline")
+        # dot.setFixedWidth(14)
 
         text = QLabel(f"{address}  ·  pos {position}  ·  {module_type}")
         text.setObjectName("DeviceItemLabel")
 
-        layout.addWidget(dot)
+        # layout.addWidget(dot)
         layout.addWidget(text)
         layout.addStretch()
 
@@ -138,10 +138,7 @@ class RightPanel(QWidget):
                      "type": str}
         """
         # Clear existing items (keep header)
-        while self._device_list_layout.count() > 1:
-            item = self._device_list_layout.takeAt(1)
-            if item.widget():
-                item.widget().deleteLater()
+        self.clear_devices()
 
         for d in devices:
             self._device_list_layout.addWidget(
@@ -151,3 +148,10 @@ class RightPanel(QWidget):
                 )
             )
         self._device_list_layout.addStretch()
+        
+    def clear_devices(self):
+        """Clear the device list (keep header)."""
+        while self._device_list_layout.count() > 1:
+            item = self._device_list_layout.takeAt(1)
+            if item.widget():
+                item.widget().deleteLater()

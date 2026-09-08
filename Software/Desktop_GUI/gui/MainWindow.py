@@ -3,7 +3,7 @@ from pathlib import Path
 
 #PyQt Functionality
 from PyQt6.QtWidgets import (
-    QMainWindow, QWidget, QVBoxLayout, QMessageBox,
+    QMainWindow, QApplication, QWidget, QVBoxLayout, QMessageBox,
     QLabel, QPushButton, QSizePolicy
 )
 from PyQt6.QtGui import QFont, QWindow
@@ -114,6 +114,7 @@ class MainWindow(QMainWindow):
         
         monitor.bridge_available.connect(lambda host, avail: robot_item.set_available(avail))
         robot_item.connect_robot.connect(self._on_robot_selected)
+        robot_item.disconnect_robot.connect(self._on_robot_disconnect)
         robot_item.remove_robot.connect(self._on_device_removed)
         
         monitor.start()
@@ -131,6 +132,8 @@ class MainWindow(QMainWindow):
         
     def _on_robot_selected(self, hostname: str):
         
+        # print("Connect button pressed")
+        
         if hostname == "No robots found":
             self._set_status(connected=False)
             self._teardown_ros_worker()
@@ -140,9 +143,28 @@ class MainWindow(QMainWindow):
         self._set_status(connected=False, label="connecting…")
         self.title_bar.robot_combo._placeholder = hostname
         self.profile_manager.change_focus(hostname)
-        self._teardown_ros_worker(hostname)   # clean up any previous connection
+        # self._teardown_ros_worker(hostname)   # Avoid tearing down the ROS worker for the selected robot
+                                                # Instead, we want to keep the ROS worker for the selected robot active and connected for control purposes.
+                                                # This allows the user to switch between robots without losing the connection to the selected robot.
         self.bottom_section.fault_log.update_faults(f"GUI: Attempting connection to {hostname}")
-        self._init_ros_worker(hostname)
+        
+        
+        if self.profile_manager.get_bridge(hostname).client is None:
+            self._init_ros_worker(hostname)
+        else:
+            #Fetch the ros_worker for this hostname
+            ros_worker = self.profile_manager.get_bridge(hostname)
+            
+            #Connect the ROS worker to the rosbridge server for this hostname, using the IP address from the profile manager
+            ros_worker.client.connect()
+            
+            #Reconnect signals to the RightPanel and StatusStrip
+            ros_worker.bot_state_updated.connect(self.middle_section.right_panel.refresh_devices)
+            ros_worker.bot_state_updated.connect(self.middle_section.status_strip.update_bus)
+            ros_worker.message_speed.connect(self.middle_section.status_strip.update_loop)
+            ros_worker.battery_updated.connect(self.middle_section.status_strip.update_battery)
+            ros_worker.cmd_vel_active.connect(self.middle_section.status_strip.update_cmdvel)
+        
  
     def _init_ros_worker(self, hostname: str):
         
@@ -155,10 +177,10 @@ class MainWindow(QMainWindow):
         self._ros_threads[hostname].started.connect(lambda: ros_worker.connect(host=host, port=9090))
         self.bottom_section.fault_log.update_faults(f"GUI: Connection established, wiring signals")
  
-        # Wire bus_state -> RightPanel
+        # Wire bus_state -> RightPanel: Only if the device has focus, otherwise ignore the signal
         ros_worker.bot_state_updated.connect(self.middle_section.right_panel.refresh_devices)
         
-        #Now to Status_strip
+        #Now to Status_strip: Again only if the device has focus, otherwise ignore the signal
         ros_worker.bot_state_updated.connect(self.middle_section.status_strip.update_bus)
         ros_worker.message_speed.connect(self.middle_section.status_strip.update_loop)
         ros_worker.battery_updated.connect(self.middle_section.status_strip.update_battery)
@@ -172,11 +194,45 @@ class MainWindow(QMainWindow):
                     lambda reason: self.fault_log.update_faults(f"Pi: {reason}", level="error"))
  
         # Wire velocity commands -> ROS publisher
+        # TODO: Revise to use the planner session manager to handle velocity commands,rather than going through the control widget. 
+        # This allows for users to have more granular control of the device with focus, while still allowing the planner to send 
+        # velocity commands to devices that don't have focus. 
         self.bottom_section.control.velocity_command.connect(
             lambda velocity: ros_worker.publish_velocity(velocity))
  
         self._ros_threads[hostname].start()
         self._set_status(connected=True)
+        
+    def _on_robot_disconnect(self, hostname: str):
+        
+            #Teardown the ROS worker and monitoring for the specified hostname
+            print("Disconnecting from robot:", hostname)
+            self.bottom_section.fault_log.update_faults(f"GUI: Disconnecting from {hostname}")
+            self.disconnect_stat_cards(hostname) #Disconnect the signals from the ROS worker to the RightPanel and StatusStrip for the specified hostname
+            # self._teardown_ros_worker(hostname) #Maybe we don't want to teardown the ROS worker, just disconnect the signals. 
+            self._teardown_monitoring(hostname)
+            self.profile_manager.get_bridge(hostname).client.close()
+            self.profile_manager.get(hostname).has_focus = False
+            
+            #Update the status to disconnected and log the disconnection
+            self._set_status(connected=False, label="disconnected")
+            self.bottom_section.fault_log.update_faults(f"GUI: Disconnected from {hostname}")
+            
+    def disconnect_stat_cards(self, hostname: str):
+        """Disconnect the signals from the ROS worker to the RightPanel and StatusStrip for the specified hostname."""
+        ros_worker = self.profile_manager.get_bridge(hostname)
+        if ros_worker is not None:
+            ros_worker.bot_state_updated.disconnect(self.middle_section.right_panel.refresh_devices)
+            ros_worker.bot_state_updated.disconnect(self.middle_section.status_strip.update_bus)
+            ros_worker.message_speed.disconnect(self.middle_section.status_strip.update_loop)
+            ros_worker.battery_updated.disconnect(self.middle_section.status_strip.update_battery)
+            ros_worker.cmd_vel_active.disconnect(self.middle_section.status_strip.update_cmdvel) 
+            
+            self.middle_section.right_panel.clear_devices()  # Clear the device list in the RightPanel
+            self.middle_section.status_strip.update_bus([])  # Clear the bus state display
+            self.middle_section.status_strip.update_loop(0.0)  # Reset the loop speed display
+            self.middle_section.status_strip.update_battery(0.0)  # Reset the battery display
+            self.middle_section.status_strip.update_cmdvel(False)  # Reset the command velocity display
  
     def _teardown_ros_worker(self, hostname:str = None):
         
@@ -186,12 +242,18 @@ class MainWindow(QMainWindow):
                 ros_thread = self._ros_threads[hostname]
                 if ros_worker is not None:
                     ros_worker.disconnect()
+                    try: #Try disconnecting, ignore errors that come from signals already being disconnected
+                        self.disconnect_stat_cards(hostname)
+                    except Exception:
+                        pass
                 if ros_thread is not None:
                     ros_thread.quit()
                     ros_thread.wait()
                     
-                #Remove the thread object from profile management 
-                self._ros_threads.pop(hostname)
+                #Remove the thread object from the local dictionary of threads, move the ros_worker to the main thread, and remove the ros_worker from the profile_manager's bridges dictionary
+                ros_worker.moveToThread(QApplication.instance().thread())
+                self.profile_manager._bridges.pop(hostname, None)
+                self._ros_threads.pop(hostname, None)
             
             #If hostname not specified, close all workers and threads recursively 
             else:

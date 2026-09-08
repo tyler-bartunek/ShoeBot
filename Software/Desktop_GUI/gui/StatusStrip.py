@@ -109,7 +109,14 @@ class StatusStrip(QWidget):
                                "ok" if publishing else "normal")
 
     def update_loop(self, hz: float):
-        self._loop.set_value(f"{hz:.0f} Hz")
+        if hz != 0.0:
+            self._loop.set_value(f"{hz:.1f} Hz")
+        else:
+            self._loop.set_value("--- Hz")
 
     def update_battery(self, voltage: float):
-        self._battery.set_battery(voltage)
+        if voltage != 0.0:
+            self._battery.set_battery(voltage)
+        else:
+            self._battery._pct.setText("---")
+            self._battery._voltage.setText("--- V avg")

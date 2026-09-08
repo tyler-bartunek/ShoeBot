@@ -137,8 +137,12 @@ class ROS_StreamWorker(QObject):
         """Clean shutdown — unsubscribe, unadvertise, close connection."""
         if self.bot_state_subscriber:
             self.bot_state_subscriber.unsubscribe()
+        if self.rosout_subscriber:
+            self.rosout_subscriber.unsubscribe()
         if self.cmd_vel_publisher:
             self.cmd_vel_publisher.unadvertise()
         if self.client and self.client.is_connected:
             self.client.terminate()
+            self.client = None
+            
         

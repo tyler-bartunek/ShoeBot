@@ -23,7 +23,7 @@ class FaultLogWidget(QWidget):
         layout.setContentsMargins(10, 10, 10, 10)
         layout.setSpacing(6)
 
-        header = QLabel("FAULT LOG")
+        header = QLabel("LOGGING / FAULTS")
         header.setObjectName("PanelSectionHeader")
         layout.addWidget(header)
 

@@ -65,13 +65,25 @@ class RobotProfileManager:
         for p in self._profiles:
             if p.hostname != hostname:
                 p.has_focus = False
+                #Disconnect signals from the ROS_StreamWorker for this profile, with exception of the logger
+                try:
+                    self._bridges[p.hostname].bot_state_updated.disconnect()
+                    self._bridges[p.hostname].message_speed.disconnect()
+                    self._bridges[p.hostname].battery_updated.disconnect()
+                    self._bridges[p.hostname].cmd_vel_active.disconnect()
+                except Exception:
+                    pass
             else:
                 p.has_focus = True
+
 
     def remove(self, hostname: str):
         self._profiles = [p for p in self._profiles
                           if p.hostname != hostname]
-        self._bridges.pop(hostname) #Remove the stream_worker
+        try:
+            self._bridges.pop(hostname) #Remove the stream_worker, hopefully flagging it for garbage collection
+        except KeyError:
+            pass
         self._save()
 
     def update_workspace(self, hostname: str, workspace: str):
@@ -87,8 +99,14 @@ class RobotProfileManager:
                      if p.hostname == hostname), None)
         
     def get_bridge(self, hostname: str) -> ROS_StreamWorker:
-        
-        return self._bridges[hostname]
+        try:
+            bridge = self._bridges[hostname]
+        except KeyError:
+            self._bridges[hostname] = ROS_StreamWorker()
+            bridge = self._bridges[hostname]
+            
+        return bridge
+            
     
     def get_address(self, hostname: str):
         
